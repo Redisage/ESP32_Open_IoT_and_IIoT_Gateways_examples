@@ -11,46 +11,36 @@
 #include "sdkconfig.h"
 #include "driver/gpio.h."
 
-/**
- * This is a example which echos any data it receives on UART back to the sender using RS485 interface in half duplex mode.
-*/
-#define RECEIVER_TAG    "RS485_RECEIVER_APP"
-#define SENDER_TAG      "RS485_SENDER_APP"
 
+/* Receiver - UART1 */
+#define RECEIVER_TAG                    "RS485_RECEIVER_APP"
+#define RS485_RECEIVER_TXD              (GPIO_NUM_32)
+#define RS485_RECEIVER_RXD              (GPIO_NUM_35)
+#define RECEIVER_PORT                   (1)
+#define RECEIVER_TASK_PRIO              (10)
+#define RECEIVER_TASK_STACK_SIZE        (2048)
 
-// Note: Some pins on target chip cannot be assigned for UART communication.
-// Please refer to documentation for selected board and target to configure pins using Kconfig.
-/* UART1 */
-#define RS485_RECEIVER_TXD GPIO_NUM_32
-#define RS485_RECEIVER_RXD GPIO_NUM_35
+/* Sender - UART2 */
+#define SENDER_TAG                      "RS485_SENDER_APP"
+#define RS485_SENDER_TXD                (GPIO_NUM_5)
+#define RS485_SENDER_RXD                (GPIO_NUM_37)
+#define SENDER_PORT                     (2)
+#define SENDER_TASK_PRIO                (11)
+#define SENDER_TASK_STACK_SIZE          (2048)
 
-/* UART2 */
-#define RS485_SENDER_TXD   GPIO_NUM_5
-#define RS485_SENDER_RXD   GPIO_NUM_37
+/* RTS for RS485 Half-Duplex Mode manages DE/~RE */
+#define RS485_RECEIVER_RTS   (GPIO_NUM_14)
+#define RS485_SENDER_RTS     (GPIO_NUM_12)
 
-// RTS for RS485 Half-Duplex Mode manages DE/~RE
-#define RS485_RECEIVER_RTS   GPIO_NUM_14
-#define RS485_SENDER_RTS     GPIO_NUM_12
-
-// CTS is not used in RS485 Half-Duplex Mode
+/* CTS is not used in RS485 Half-Duplex Mode */
 #define RS485_RECEIVER_CTS   (UART_PIN_NO_CHANGE)
 #define RS485_SENDER_CTS     (UART_PIN_NO_CHANGE)
 
 #define BUF_SIZE        (127)
-#define BAUD_RATE       (CONFIG_ECHO_UART_BAUD_RATE)
+#define BAUD_RATE       (115200)
 
-// Read packet timeout
+/* Read packet timeout */
 #define PACKET_READ_TICS        (3000 / portTICK_RATE_MS)
-
-#define RECEIVER_TASK_STACK_SIZE    (2048)
-#define SENDER_TASK_STACK_SIZE      (2048)
-
-#define RECEIVER_TASK_PRIO           (10)
-#define SENDER_TASK_PRIO             (11)
-
-#define ECHO_UART_PORT          (0)
-#define RECEIVER_PORT           (1)
-#define SENDER_PORT             (2)
 
 // Timeout threshold for UART = number of symbols (~10 tics) with unchanged state on receive pin
 #define ECHO_READ_TOUT          (3) // 3.5T * 8 = 28 ticks, TOUT=3 -> ~24..33 ticks
@@ -183,8 +173,8 @@ static void sender_task(void *arg)
 void app_main(void)
 {
     /* Receiver task */
-    xTaskCreate(receiver_task, "uart_receiver_task", RECEIVER_TASK_STACK_SIZE, NULL, RECEIVER_TASK_PRIO, NULL);
+    xTaskCreate(receiver_task, "rs485_receiver_task", RECEIVER_TASK_STACK_SIZE, NULL, RECEIVER_TASK_PRIO, NULL);
 
     /* Sender task */
-    xTaskCreate(sender_task, "uart_sender_task", SENDER_TASK_STACK_SIZE, NULL, SENDER_TASK_PRIO, NULL);
+    xTaskCreate(sender_task, "rs485_sender_task", SENDER_TASK_STACK_SIZE, NULL, SENDER_TASK_PRIO, NULL);
 }
