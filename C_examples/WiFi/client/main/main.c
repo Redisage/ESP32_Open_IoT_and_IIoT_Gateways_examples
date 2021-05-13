@@ -13,8 +13,8 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-#define ESP_WIFI_SSID      "ssid"            /** Put your WiFi SSID here                */
-#define ESP_WIFI_PASS      "password"        /** Put your WiFi password here            */
+#define ESP_WIFI_SSID      "SoftCad"            /** Put your WiFi SSID here                */
+#define ESP_WIFI_PASS      "dupajasiu"        /** Put your WiFi password here            */
 #define ESP_MAXIMUM_RETRY  5                 /** Number of retries in case of failure   */
 
 /* FreeRTOS event group to signal when we are connected */

@@ -17,7 +17,7 @@
 #define RECEIVER_TAG                    "RS232_RECEIVER_APP"
 #define RS232_RECEIVER_TXD              (GPIO_NUM_32)
 #define RS232_RECEIVER_RXD              (GPIO_NUM_35)
-#define RS232_RECEIVER_RTS              (UART_PIN_NO_CHANGE)
+#define RS232_RECEIVER_RTS              (GPIO_NUM_14)
 #define RS232_RECEIVER_CTS              (UART_PIN_NO_CHANGE)
 #define RECEIVER_PORT                   (1)
 #define RECEIVER_TASK_PRIO              (10)
@@ -27,7 +27,7 @@
 #define SENDER_TAG                      "RS2323_SENDER_APP"
 #define RS232_SENDER_TXD                (GPIO_NUM_5)
 #define RS232_SENDER_RXD                (GPIO_NUM_37)
-#define RS232_SENDER_RTS                (UART_PIN_NO_CHANGE)
+#define RS232_SENDER_RTS                (GPIO_NUM_12)
 #define RS232_SENDER_CTS                (UART_PIN_NO_CHANGE)
 #define SENDER_PORT                     (2)
 #define SENDER_TASK_PRIO                (11)
@@ -35,7 +35,7 @@
 
 #define BUF_SIZE (127)
 
-#define PACKET_READ_TICS        (3000 / portTICK_RATE_MS)
+#define PACKET_READ_TICS        (1000 / portTICK_RATE_MS)
 
 static void receiver_task(void *arg)
 {

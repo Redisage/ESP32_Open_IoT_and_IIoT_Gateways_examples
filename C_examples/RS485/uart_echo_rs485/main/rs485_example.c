@@ -12,7 +12,7 @@
 #include "driver/gpio.h."
 
 
-/* Receiver - UART1 */
+// Receiver - UART1
 #define RECEIVER_TAG                    "RS485_RECEIVER_APP"
 #define RS485_RECEIVER_TXD              (GPIO_NUM_32)
 #define RS485_RECEIVER_RXD              (GPIO_NUM_35)
@@ -20,7 +20,7 @@
 #define RECEIVER_TASK_PRIO              (10)
 #define RECEIVER_TASK_STACK_SIZE        (2048)
 
-/* Sender - UART2 */
+// Sender - UART2
 #define SENDER_TAG                      "RS485_SENDER_APP"
 #define RS485_SENDER_TXD                (GPIO_NUM_5)
 #define RS485_SENDER_RXD                (GPIO_NUM_37)
@@ -28,7 +28,7 @@
 #define SENDER_TASK_PRIO                (11)
 #define SENDER_TASK_STACK_SIZE          (2048)
 
-/* RTS for RS485 Half-Duplex Mode manages DE/~RE */
+//RTS for RS485 Half-Duplex Mode manages DE/~RE
 #define RS485_RECEIVER_RTS   (GPIO_NUM_14)
 #define RS485_SENDER_RTS     (GPIO_NUM_12)
 
@@ -88,6 +88,8 @@ static void receiver_task(void *arg)
     ESP_LOGI(RECEIVER_TAG, "UART start recieve loop.\r\n");
 
     /* Set the Sender RTS Pin High to drive RS485 Converter */
+    gpio_pad_select_gpio(RS485_RECEIVER_RTS);
+    gpio_set_direction(RS485_RECEIVER_RTS, GPIO_MODE_OUTPUT);
     gpio_set_level(RS485_RECEIVER_RTS, 0);
 
     while(1) {
@@ -146,9 +148,10 @@ static void sender_task(void *arg)
     ESP_ERROR_CHECK(uart_set_mode(uart_num, UART_MODE_RS485_HALF_DUPLEX));
 
     ESP_LOGI(SENDER_TAG, "UART start sender loop.\r\n");
-    //(uart_num, "Start RS485 UART test.\r\n", 24);
 
     /* Set the Sender RTS Pin High to drive RS485 Converter */
+    gpio_pad_select_gpio(RS485_SENDER_RTS);
+    gpio_set_direction(RS485_SENDER_RTS, GPIO_MODE_OUTPUT);
     gpio_set_level(RS485_SENDER_RTS, 1);
 
     while(1) {
