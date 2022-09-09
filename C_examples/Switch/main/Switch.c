@@ -28,7 +28,7 @@
 
 bool shift_register_buffer[SHIFT_REGISTER_BUFFER_LENGTH];   //only 3 of 8 pins in shift register reserved for rgb LED
 
-static void gpio_init(void){
+static void app_gpio_init(void){
     gpio_pad_select_gpio(STCP);
     gpio_set_direction(SERIAL_REG_DATA, GPIO_MODE_OUTPUT);
     gpio_set_direction(STCP, GPIO_MODE_OUTPUT);
@@ -60,7 +60,7 @@ static void set_color(int x){
 
 void app_main(void)
 {
-    gpio_init();
+    app_gpio_init();
     while (1) {
         if(gpio_get_level(BUTTON) == 1){
             set_color(RED);
