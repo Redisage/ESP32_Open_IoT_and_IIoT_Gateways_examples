@@ -1,17 +1,15 @@
-***
-# Hello World Example for ESP32 Open IoT Gateway
-***
+# Hello World example for ESP32 Open IoT and IIoT Gateway
 
-## Example description: https://docs.redisage.com/dpr/hello-world
+## How 2 use?
+1. Add your .vscode folder to the project folder (`F1` + `ESP-IDF: Add vscode Configuration Folder`).
+2. Build, flash and monitor your project (`F1` + `ESP-IDF: Build, Flash and Start a Monitor on your Device`).
 
-## Pheriphery description: https://docs.redisage.com/dpr/microusb
+## Notes
+* This project was made on ESP-IDF v5.2 version.
+* This example is based on:
+    * https://github.com/espressif/esp-idf/tree/master/examples/get-started/hello_world
 
-***
-
-## Manufacturer's website : https://redisage.com/
-
-## Products link: https://redisage.com/pol_m_PAC-IoT-173.html?filter_traits%5B163%5D=164&filter_traits%5B196%5D=&filter_traits%5B38%5D=
-
-## Contact us: support@redisage.com
-
-***
+## Sources
+* Manufacturer's website: https://redisage.com/
+* Products link: https://redisage.com/pol_m_PAC-IoT-173.html?filter_traits%5B163%5D=164&filter_traits%5B196%5D=&filter_traits%5B38%5D=
+* Contact us: support@redisage.com
