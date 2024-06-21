@@ -1,5 +1,5 @@
 /**
- * @file iwc_scanner.c
+ * @file i2c_scanner.c
  * @author support@redisage.com
  * @brief I2C scanner example for ESP32 Open IoT and IIoT Gateway
  * 
