@@ -1,4 +1,4 @@
-# Hello World example for ESP32 Open IoT and IIoT Gateway
+# RGB LED example for ESP32 Open IoT and IIoT Gateway 
 
 ## How 2 use?
 1. Hit `F5` button in Thonny IDE to run current script.
